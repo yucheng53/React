@@ -5,7 +5,7 @@ import Userform from './components/Userform';
 function App() {
   return (
     <div className='container-sm'>
-      <Userform />
+      <Usereducer />
     </div>
   );
 }
