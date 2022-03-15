@@ -1,0 +1,10 @@
+.App {
+  text-align: center;
+}
+
+.block {
+  width: 100px;
+  height: 100px;
+  background-color: black;
+}
+
