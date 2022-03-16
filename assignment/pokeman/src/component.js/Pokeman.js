@@ -17,8 +17,6 @@ const Pokeman = (props)=> {
         setDisplay(true);
 }
 
-    
-
     return(
         <div>
             <button type="submit" onClick={handleSubmit}>Fetch Pokemon</button>
