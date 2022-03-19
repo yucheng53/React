@@ -23,6 +23,7 @@ function App() {
             console.log(response);
             setData(response.data);
         })
+        .catch(err => {history.push("/error")})
 }, [character.catagory, character.id]);
 
   const handleChange = (e) => {
@@ -35,7 +36,13 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-      history.push(`/${character.catagory}/${character.id}/`)
+      // if (character.id !== data.id) {
+      //   history.push("/error")
+      // }
+      // else {
+        history.push(`/${character.catagory}/${character.id}/`)
+      // }
+
     
   }  
   
@@ -63,6 +70,7 @@ function App() {
           </form>
 
       <Switch>
+        {/* /people/18 */}
         <Route exact path = "/people/:id">
           <People show={data}/>
         </Route>
