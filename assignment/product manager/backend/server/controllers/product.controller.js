@@ -11,3 +11,9 @@ module.exports.createNewProduct = (req, res) => {
         .then(results => res.json(results))
         .catch(err => res.status(400).json({message: "That didn't work", err}))
 }
+
+module.exports.getOne = (req, res) => {
+    Product.findOne({_id: req.params._id})
+        .then((results) => res.json(results))
+        .catch(err => res.status(400).json({message: "Not working", err}))
+}
