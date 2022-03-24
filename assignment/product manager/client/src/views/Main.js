@@ -7,6 +7,7 @@ import Edit from "./Edit";
 const Main = (props) => {
     const [form, setForm] = useState({});
     const [products, setProducts] = useState([]);
+    const [error, setError] = useState({})
 
 
     useEffect(() =>{
@@ -35,6 +36,7 @@ const Main = (props) => {
                     setProducts(copyState);
                 })
                 .catch(err => console.log(err.response))
+                
         }
     }
 
@@ -45,7 +47,7 @@ const Main = (props) => {
                 console.log(res);
             })
             .catch(err => {
-                console.log(err);
+                setError(err.response.data.err.errors);
             })
         console.log("submit form");
         setForm({});
@@ -60,10 +62,12 @@ const Main = (props) => {
                         <div className="form-group">
                             <label htmlFor="title">Title:</label>
                             <input type="text" value = {form.title} className="form-control" name="title" placeholder="Enter title" onChange={onChangeHandler} />
+                            <span className="alert-danger">{error.title && error.title.message}</span>
                         </div>
                         <div className="form-group">
                             <label htmlFor="price">Price:</label>
                             <input type="number" value = {form.price} className="form-control" name="price" placeholder="Enter price" onChange={onChangeHandler} />
+                            <span className="alert-danger">{error.price && error.price.message}</span>
                         </div>
                         <div className="form-group">
                             <label htmlFor="description">Description:</label>
