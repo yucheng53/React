@@ -17,3 +17,15 @@ module.exports.getOne = (req, res) => {
         .then((results) => res.json(results))
         .catch(err => res.status(400).json({message: "Not working", err}))
 }
+
+module.exports.deleteOne = (req, res) => {
+    Product.deleteOne({_id: req.params._id})
+        .then(results => res.json(results))
+        .catch(err => res.status(400).json({message: "That didn't work", err}))
+}
+
+module.exports.updateOne = (req, res) => {
+    Product.updateOne({_id: req.params._id}, req.body)
+        .then(results => res.json(results))
+        .catch(err => res.status(400).json({message: "That didn't work", err}))
+}

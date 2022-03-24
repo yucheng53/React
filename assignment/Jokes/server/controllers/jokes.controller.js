@@ -1,4 +1,5 @@
 const Joke = require("../models/jokes.model");
+var random = require('mongoose-random');
 
 module.exports.testResponse = (req, res) => {
     res.json({message: "test response!"})
@@ -35,7 +36,15 @@ module.exports.updateOneJoke = (req, res) => {
 }
 
 module.exports.getRandomJoke = (req, res) => {
-    Joke.aggregate([{$sample: {size: 1}}])
+    //call find put in a variable allJokes
+    //make a random number with Math.random and useallJokes.length
+    //return allJokes[random]
+    const Jokes = Joke.find({})
+    const random = Math.floor(Math.random() * Jokes.length);
+        console.log(random);
+        return Jokes[random]
         .then(results => res.json(results))
         .catch(err => res.status(400).json({message: "That didn't work", err}))
+    // const random = Math.floor(Math.random() * Jokkes.length)
+    // return Jokkes[random];
 }

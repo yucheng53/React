@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router";
 import { Switch, Route, Link } from "react-router-dom";
 import Infor from "./Infor";
+import Edit from "./Edit";
 
 const Main = (props) => {
     const [form, setForm] = useState({});
     const [products, setProducts] = useState([]);
-    const {_id} = useParams();
+
 
     useEffect(() =>{
         axios.get("http://localhost:8000/api/products")
@@ -17,13 +17,25 @@ const Main = (props) => {
                 console.log(products);
             })
             .catch(err => console.log(err))
-    },[])
+    },[products])
 
     const onChangeHandler = (event) => {
         setForm(
             {...form,
             [event.target.name] : event.target.value}
         )
+    }
+
+    const onDeleteHandler = (_id, index) => {
+        if(window.confirm("Are you sure you want to delete the product?")){
+            axios.delete(`http://localhost:8000/api/products/delete/${_id}`)
+                .then(res=>{
+                    const copyState = [...products];
+                    copyState.splice(index, 1);
+                    setProducts(copyState);
+                })
+                .catch(err => console.log(err.response))
+        }
     }
 
     const onSubmitHandler = (event) => {
@@ -63,15 +75,17 @@ const Main = (props) => {
                     <h1>All Products:</h1>
                         {
                             products.map((item,i) => {
-                                return <div><Link to={`/${item._id}`} key={i}>{item.title}</Link></div>
+                                return <div className="mt-3"><Link to={`/${item._id}`} key={i}>{item.title}</Link><span>  </span><Link to={`/api/products/update/${item._id}`} className="btn btn-primary btn-sm">Edit</Link><span>  </span><button onClick={()=>onDeleteHandler(item._id,i)} className="btn btn-danger btn-sm">Delete</button>  </div>
                             })
                         }                    
                 </Route>
                 <Route exact path="/:_id">
                     <div>
                         <Infor />
-                    </div>
-                        
+                    </div>                        
+                </Route>
+                <Route exact path="/api/products/update/:_id">
+                    <Edit />
                 </Route>
             </Switch>
         </div>
