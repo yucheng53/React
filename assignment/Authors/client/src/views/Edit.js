@@ -14,34 +14,35 @@ const Edit = props => {
     useEffect(() =>{
         axios.get(`http://localhost:8000/author/${_id}`)
             .then(res => {
-                return res.data})
-            .then(res => {
-                console.log(res);
-                setAuthor(res);
+                console.log(res.data);
+                setAuthor(res.data);
                 console.log(author);
                 setLoaded(true);
             })
-            .catch(err =>
-                setError(err.response.data.err.errors))
+            .catch(err => {
+                console.log(err);
+                setError(err.response.data.err.errors)
+            })
+                
     },[_id])
 
-    const UpdateAuthor = () => {
+    const UpdateAuthor = (author) => {
         axios.patch("http://localhost:8000/api/authors/update/"+_id, author)
         .then(res => {
             console.log(res);
         })
         .catch(err => {
             console.log(err);
+            setError(err.response.data.err.errors);
         })
         history.push("/");
-
     }
 
-    return(
+    return( 
         <div>
-            {loaded && <AuthorForm onSubmitProp = {UpdateAuthor} initialAuthor = {author} error = {error}/>}
+            {loaded && <AuthorForm onSubmitProp = {UpdateAuthor} initialAuthor = {author} error = {error} />}
         </div>
-    )
+        )
 }
 
 export default Edit;

@@ -16,29 +16,28 @@ const AuthorForm = props => {
     const onSubmitHandler = (event) => {
         event.preventDefault();
         onSubmitProp(form);
-        setForm({});
     }
-
 
     return(
         <div>
+            
             <form onSubmit={onSubmitHandler} className="d-flex flex-column justify-content-center form">
                 <div className="form-group mb-3">
                     <label htmlFor="name">Name:</label>
                     <input type="text" value = {form.name} className="form-control" name="name" placeholder="Enter name" onChange={onChangeHandler} />
-                    <span className="alert-danger">{error.name && error.name.message}</span>
+                    <span className="alert-danger">{error?.name && error.name.message}</span>
                 </div>
 
                 <div className="form-group mb-3">
                     <label htmlFor="color">Color:</label>
                     <input type="color" className="form-control colorcss" name="color" onChange={onChangeHandler} />
-                    <span className="alert-danger">{error.color && error.color.message}</span>
+                    <span className="alert-danger">{error?.color && error.color.message}</span>
                 </div>
 
                 <div className="form-group mb-3">
                     <label htmlFor="numOfRewards">Number Of Rewards:</label>
                     <input type="number" value = {form.numOfRewards} className="form-control" name="numOfRewards" placeholder="Enter number of rewards" onChange={onChangeHandler} />
-                    <span className="alert-danger">{error.numOfRewards && error.numOfRewards.message}</span>
+                    <span className="alert-danger">{error?.numOfRewards && error.numOfRewards.message}</span>
                 </div>
                 <div className="form-group mb-3">
                     <label htmlFor="books">Books:</label>
@@ -53,7 +52,7 @@ const AuthorForm = props => {
                     <input type="checkbox" checked = {form.active} className="form-control-check ms-3" name="active"  onChange={onChangeHandler} />
                 </div>
 
-                <button type="submit" className="btn btn-primary mt-3">AuthorForm</button>
+                <button type="submit" className="btn btn-primary mt-3">Save</button>
             </form>
         </div>
     )

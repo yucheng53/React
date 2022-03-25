@@ -16,8 +16,20 @@ const Main = props => {
                 setLoaded(true);
             })
             .catch(err => console.log(err))
-    },[])
+    },[loaded])
 
+    const onDeleteHandler = (_id, index) => {
+        if(window.confirm("Are you sure you want to delete the product?")){
+            axios.delete(`http://localhost:8000/api/authors/delete/${_id}`)
+                .then(res=>{
+                    const copyState = [...authors];
+                    copyState.splice(index, 1);
+                    setAuthors(copyState);
+                })
+                .catch(err => console.log(err.response))
+                
+        }
+    }
     return (
         <div className="container-sm">
             <Link to="/new">Add an author</Link>
@@ -36,7 +48,7 @@ const Main = props => {
                             return  loaded && <tr key={i}>                              
                                         <th scope="row">{i+1}</th>
                                         <td><Link to="#">{item.name}</Link></td>
-                                        <td><Link to={`/edit/${item._id}`} className="btn btn-info">Edit</Link> <Link to="#" className="btn btn-danger ms-2">Delete</Link></td> 
+                                        <td><Link to={`/edit/${item._id}`} className="btn btn-info">Edit</Link> <button onClick={()=>onDeleteHandler(item._id, i)} className="btn btn-danger ms-2">Delete</button></td> 
                                     </tr>   
                         })
                     }
