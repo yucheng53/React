@@ -14,7 +14,7 @@ const Edit = props => {
     useEffect(() =>{
         axios.get(`http://localhost:8000/author/${_id}`)
             .then(res => {
-                return res.data.name})
+                return res.data})
             .then(res => {
                 console.log(res);
                 setAuthor(res);
